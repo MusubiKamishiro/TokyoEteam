@@ -18,6 +18,8 @@ public class AreaManager : MonoBehaviour
     [SerializeField] Color playerColor;
     [SerializeField] Renderer renderer;
 
+    //[SerializeField]
+
     //エリアの占領状況について
     public enum State
     {

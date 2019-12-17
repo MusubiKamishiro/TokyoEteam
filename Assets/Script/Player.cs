@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] GameObject muzzle;//古澤追加
+    Rigidbody rb;
     public GameObject ball;
     // スティックの誤差
     public float recoilRate = 0.1f;
@@ -22,7 +24,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -55,8 +57,9 @@ public class Player : MonoBehaviour
         // 左スティックの情報をもとにキャラの向きの変更と移動
         if ((x != 0) || (z != 0))
         {
-            Vector3 move = new Vector3(0, 0, 0.1f);
-            transform.Translate(move);
+            //Vector3 move = new Vector3(0, 0, 0.1f);
+            //transform.Translate(move);
+            rb.velocity = new Vector3(x*10,0,z*10);
 
             Vector3 direction = new Vector3(x, 0, z);
             transform.localRotation = Quaternion.LookRotation(direction);
@@ -75,10 +78,31 @@ public class Player : MonoBehaviour
             (((rightStick.x <= recoilRate) && (rightStick.x >= -recoilRate)) && ((rightStick.z <= recoilRate) && (rightStick.z >= -recoilRate))))
         {
             var obj = GameObject.Instantiate(ball, position - new Vector3(oldRightStick.x * 5, 0, oldRightStick.z * 5), Quaternion.Euler(0, 0, 0));
+            Throw();
             //var obj = GameObject.Instantiate(ball, position - new Vector3(attack.x * 5, 0, attack.z * 5), Quaternion.Euler(0, 0, 0));
         }
 
         Debug.Log("rightStick.x:" + rightStick.x + ", rightStick.z:" + rightStick.z);
+    }
+
+    //豆投げるyafusoさんのスクリプト移植
+    void Throw()
+    {
+
+        for(int i = 0; i < 5; i++)
+        {
+            Quaternion iden = Quaternion.identity;
+            //Quaternion angle = Quaternion.Euler(Random.Range(-30, 30), 0, Random.Range(-30, 30)) + iden;
+            Vector3 pos = muzzle.transform.position;
+            pos.x += Random.Range(-1, 1);
+            pos.z += Random.Range(-1, 1);
+            var BeansInstance1 = Instantiate(ball, pos, Quaternion.identity);
+            BeansInstance1.GetComponent<Rigidbody>().AddForce(muzzle.transform.forward * 800);
+
+            Destroy(BeansInstance1, 30f);
+        }
+
+
     }
 
     // 座標のゲッター

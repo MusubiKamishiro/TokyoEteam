@@ -9,17 +9,13 @@ public class AreaBossFlag : MonoBehaviour
     {
        
     }
-
-
-    void Update()
+    private void OnDestroy()
     {
-        time += Time.deltaTime;
-        if(time > 2f)
-        {
-            //ボスからこの関数を呼び出せば占領できる
-            transform.parent.GetComponent<AreaManager>().CaptureComplete();
-            Destroy(gameObject);
-        }
+        //ボスからこの関数を呼び出せば占領できる
+        transform.parent.GetComponent<AreaManager>().CaptureComplete();
+        transform.parent.GetComponent<EnemySpawn>().processFlag = false;
     }
+
+
 
 }
