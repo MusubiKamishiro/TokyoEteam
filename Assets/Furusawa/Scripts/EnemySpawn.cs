@@ -21,9 +21,9 @@ public class EnemySpawn : MonoBehaviour
 
 
     //プレイヤーからの沸き範囲
-    [SerializeField] float innerRadius;
-    [SerializeField] float outerRadius;
-    [SerializeField,Range(0,360)] int angle = 0;
+    [SerializeField,Tooltip("何のそばに敵をSpawnさせるか")] GameObject target;
+    [SerializeField,Tooltip("敵が沸く、プレイヤーとの最低距離")] float innerRadius;
+    [SerializeField,Tooltip("敵が沸く、プレイヤーとの最高距離")] float outerRadius;
 
 
 
@@ -44,6 +44,10 @@ public class EnemySpawn : MonoBehaviour
     void Update()
     {
         //Debug.DrawRay(new Vector3(0, 10, 0), new Vector3(0, 10, 0));
+        if(processFlag == false)
+        {
+            return;
+        }
         TimeCount();
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -117,21 +121,28 @@ public class EnemySpawn : MonoBehaviour
     {
         //外の四角の範囲内かつ内の四角の範囲内に敵を沸かす
         //円を求めてradiusの分離れた場所にset
-        Vector3 pos = new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f));
+        Vector3 pos = Vector3.zero;
         bool isOK = false;
         //場所が見つからない間繰り返す
 
         while (true)
         {
-            pos = new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f));
+            ////とりあえずここに書く。内側の最大値と外側の最大値の間でランダム
+            var pos1 = Random.Range(innerRadius, outerRadius);
+
+            var angle = Random.Range(0, 360);
+            var rad = angle * Mathf.Deg2Rad;
+            var px = Mathf.Cos(rad) * pos1 + target.transform.position.x;
+            var py = Mathf.Sin(rad) * pos1 + target.transform.position.z;
+            pos = new Vector3(px, 0, py);
 
             if (CheckGround(pos)) break;
         }
 
-        //とりあえずここに書く。内側の最大値と外側の最大値の間でランダム
-        var poss = Random.Range(innerRadius, outerRadius);
+
 
         return pos;
+
     }
 
     //spawnの位置に物が置いてないか確認してなければTrueを返す
