@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CursorThrow : MonoBehaviour
 {
-
     [SerializeField]
     private Texture2D cursor;
     public GameObject Sphere;
@@ -36,5 +35,4 @@ public class CursorThrow : MonoBehaviour
         }
 
     }
-   
 }
