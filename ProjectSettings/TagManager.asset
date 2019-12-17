@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Item
+  - Enemy
+  - Destroy
+  - Beans
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - 
   - PostProcessing
   - Enemy
-  - 
+  - Target
   - 
   - 
   - 
