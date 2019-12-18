@@ -15,13 +15,13 @@ public class EnemyHP : MonoBehaviour
         hp = MaxHP;
     }
 
+
     void OnCollisionEnter(Collision coll)
     {
         if (coll.gameObject.tag == "Beans")
         {
             hp -= 1;
             Debug.Log(hp);
-
         }
     }
 
@@ -30,7 +30,7 @@ public class EnemyHP : MonoBehaviour
     {
         if(hp <= 0)
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 5f);
         }
     }
 }
