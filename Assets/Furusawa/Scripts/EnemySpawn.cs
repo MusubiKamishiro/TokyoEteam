@@ -17,7 +17,7 @@ public class EnemySpawn : MonoBehaviour
     //空から地面にRayを飛ばして地面の様子を見る？
     //sphere出して様子見る？
 
-    [SerializeField,Tooltip("現在敵がどれくらいいるのか")] private int currentEnemyNum = 0;
+    [Tooltip("現在敵がどれくらいいるのか")] public int currentEnemyNum = 0;
 
 
     //プレイヤーからの沸き範囲
@@ -99,6 +99,7 @@ public class EnemySpawn : MonoBehaviour
 
         //配列の中でランダムに敵を選び、Groundの場所に敵を配置
         GameObject enemyInstant = Instantiate(RandomEnemy(), spawnPos, Quaternion.identity);
+        enemyInstant.transform.SetParent(transform);
 
 
     }
@@ -173,5 +174,21 @@ public class EnemySpawn : MonoBehaviour
         }
 
         return flag;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("あたってる");
+        if (other.CompareTag("Player"))
+        {
+            processFlag = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            processFlag = false;
+        }
     }
 }

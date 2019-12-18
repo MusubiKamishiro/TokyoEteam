@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //一つのエリアを占領しているかしていないかの判断
+//敵が死んだときにtransform.parent.getcomponent<AreaManager>().CaptureComplete()を指定しなきゃ占領できない
 public class AreaManager : MonoBehaviour
 {
     [SerializeField] PlayerStatus playerStatus;
@@ -16,6 +17,8 @@ public class AreaManager : MonoBehaviour
     [SerializeField] Color enemyColor;
     [SerializeField] Color playerColor;
     [SerializeField] Renderer renderer;
+
+    //[SerializeField]
 
     //エリアの占領状況について
     public enum State
@@ -69,7 +72,7 @@ public class AreaManager : MonoBehaviour
         state = State.NowCapture;
         //ボスがいないからプレイヤーが来たら出現させる
         Vector3 pos = new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3));
-        pos = pos + transform.localPosition;
+        pos = pos + transform.position;
         boss = Instantiate(bossPrefab, pos, Quaternion.identity);
         boss.transform.SetParent(transform);
         Debug.Log("ボス出現");
