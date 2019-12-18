@@ -8,8 +8,8 @@ public class VisualPointThrow : MonoBehaviour
     private Texture2D cursor;
     [SerializeField]
     private GameObject BeansPrefab;
-    //[SerializeField]
-    //private Transform LaunchPort;
+   
+
 
     [SerializeField] private Transform LP1;
     [SerializeField] private Transform LP2;
@@ -48,21 +48,16 @@ public class VisualPointThrow : MonoBehaviour
     {
 
         var BeansInstance1 = Instantiate<GameObject>(BeansPrefab, LP1.position,LP1.rotation);
-        BeansInstance1.GetComponent<Rigidbody>().AddForce(BeansInstance1.transform.forward * BeansPower);
+        BeansInstance1.GetComponent<Rigidbody>().AddForce((BeansInstance1.transform.forward + BeansInstance1.transform.up)/2 * BeansPower);
 
         var BeansInstance2 = Instantiate<GameObject>(BeansPrefab, LP2.position, LP2.rotation);
-        BeansInstance2.GetComponent<Rigidbody>().AddForce(BeansInstance2.transform.forward * BeansPower);
+        BeansInstance2.GetComponent<Rigidbody>().AddForce((BeansInstance2.transform.forward + BeansInstance2.transform.up)/2 * BeansPower);
 
         var BeansInstance3 = Instantiate<GameObject>(BeansPrefab, LP3.position, LP3.rotation);
-        BeansInstance3.GetComponent<Rigidbody>().AddForce(BeansInstance3.transform.forward * BeansPower);
+        BeansInstance3.GetComponent<Rigidbody>().AddForce((BeansInstance3.transform.forward + BeansInstance3.transform.up)/2 * BeansPower);
 
         var BeansInstance4 = Instantiate<GameObject>(BeansPrefab, LP4.position, LP4.rotation);
-        BeansInstance4.GetComponent<Rigidbody>().AddForce(BeansInstance4.transform.forward * BeansPower);
-
-        Destroy(BeansInstance1, 30f);
-        Destroy(BeansInstance2, 30f);
-        Destroy(BeansInstance3, 30f);
-        Destroy(BeansInstance4, 30f);
+        BeansInstance4.GetComponent<Rigidbody>().AddForce((BeansInstance4.transform.forward + BeansInstance4.transform.up)/2 * BeansPower);
 
     }
 }
