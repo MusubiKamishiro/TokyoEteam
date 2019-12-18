@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Phase3 : BossPhase
+public class Phase3 : Phase2
 {
     public Phase3(NavMeshAgent ag, Animator an, EnemyStatus sta, Weapon w, Player p, Transform t,Boss b) : base(ag, an, sta, w, p,t,b)
     {

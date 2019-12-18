@@ -48,4 +48,6 @@ public class BossPhase
     {
         currentAction = action;
     }
+    //phase2の為
+    public virtual void resetValues() { }
 }

@@ -15,7 +15,7 @@ public class Phase1 : BossPhase
     {
         base.EnterState();
         changeState(BossActions.chase);
-        Debug.Log("is phase 1");
+
     }
     public override void ExitState()
     {
@@ -80,4 +80,5 @@ public enum BossActions
 {
     chase,
     attack,
+    magic
 }

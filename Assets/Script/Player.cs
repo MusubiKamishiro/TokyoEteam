@@ -5,11 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] GameObject muzzle;//古澤追加
+    [SerializeField] ParticleSystem fx_bean;
     Rigidbody rb;
     public GameObject ball;
     // スティックの誤差
     public float recoilRate = 0.1f;
-    public float a = 0;
 
     private Vector3 position;
     private Quaternion rotate;
@@ -17,9 +17,13 @@ public class Player : MonoBehaviour
     private Vector3 rightStick;
     // 1フレーム前の右スティックの回転率
     private Vector3 oldRightStick;
-   // 豆の攻撃方向
+    // 豆の攻撃方向
     private Vector3 attack;
-    
+    // 攻撃角度
+    private float attackAngle = 0.2f;
+    // 
+    private float angle = 1;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +34,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.P))
+        {
+            angle += 1;
+        }
+        else if (Input.GetKey(KeyCode.L))
+        {
+            angle += -1;
+        }
+        //else
+        //{
+        //    angle = 0;
+        //}
+
         position = transform.position;
         rotate = transform.rotation;
 
@@ -46,6 +63,7 @@ public class Player : MonoBehaviour
 
         Move();
         Attack();
+        Debug.Log(angle);
     }
 
     // 移動処理
@@ -55,12 +73,9 @@ public class Player : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         // 左スティックの情報をもとにキャラの向きの変更と移動
+        rb.velocity = new Vector3(x * 10, -3, z * 10);
         if ((x != 0) || (z != 0))
         {
-            //Vector3 move = new Vector3(0, 0, 0.1f);
-            //transform.Translate(move);
-            rb.velocity = new Vector3(x*10,0,z*10);
-
             Vector3 direction = new Vector3(x, 0, z);
             transform.localRotation = Quaternion.LookRotation(direction);
         }
@@ -74,12 +89,12 @@ public class Player : MonoBehaviour
         // vertical2の値が反転していたため即席の修正、原因は時間があるときに
         rightStick.z = -rightStick.z;
 
-        if((((oldRightStick.x >= recoilRate) || (oldRightStick.x <= -recoilRate)) || ((oldRightStick.z >= recoilRate) || (oldRightStick.z <= -recoilRate))) && 
-            (((rightStick.x <= recoilRate) && (rightStick.x >= -recoilRate)) && ((rightStick.z <= recoilRate) && (rightStick.z >= -recoilRate))))
+        //if ((oldRightStick.z <= -recoilRate) && (rightStick.z >= -recoilRate))
+        if (Input.GetButtonDown("Fire1"))
         {
-            var obj = GameObject.Instantiate(ball, position - new Vector3(oldRightStick.x * 5, 0, oldRightStick.z * 5), Quaternion.Euler(0, 0, 0));
-            Throw();
-            //var obj = GameObject.Instantiate(ball, position - new Vector3(attack.x * 5, 0, attack.z * 5), Quaternion.Euler(0, 0, 0));
+            // ここに豆を投げる処理の追加
+            //Throw();
+            fx_bean.Play();
         }
 
         Debug.Log("rightStick.x:" + rightStick.x + ", rightStick.z:" + rightStick.z);
@@ -88,8 +103,7 @@ public class Player : MonoBehaviour
     //豆投げるyafusoさんのスクリプト移植
     void Throw()
     {
-
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
             Quaternion iden = Quaternion.identity;
             //Quaternion angle = Quaternion.Euler(Random.Range(-30, 30), 0, Random.Range(-30, 30)) + iden;
@@ -101,8 +115,6 @@ public class Player : MonoBehaviour
 
             Destroy(BeansInstance1, 30f);
         }
-
-
     }
 
     // 座標のゲッター
@@ -119,6 +131,22 @@ public class Player : MonoBehaviour
         get
         {
             return rotate;
+        }
+    }
+    // 攻撃範囲のゲッター
+    public float GetAttackAngle
+    {
+        get
+        {
+            return attackAngle;
+        }
+    }
+    // 回転情報のゲッター
+    public float GetAngle
+    {
+        get
+        {
+            return angle;
         }
     }
 }

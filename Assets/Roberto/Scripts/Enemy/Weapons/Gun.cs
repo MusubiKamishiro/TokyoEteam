@@ -16,7 +16,13 @@ public class Gun : Weapon
     {
         p = FindObjectOfType<Player>();
     }
-   
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            attack(1);
+        }
+    }
     public override void attack(int i)
     {
        bullet newBullet=  Instantiate(bullet, spawnPoint.position, spawnPoint.rotation) as bullet;

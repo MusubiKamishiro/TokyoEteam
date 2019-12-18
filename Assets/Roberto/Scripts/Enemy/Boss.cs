@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Boss : MonoBehaviour
 {
-    public Transform roof = null;
+    
     //攻撃力など、ボスの様々値が入っているクラス
     [SerializeField]
     EnemyStatus state=null;
@@ -14,6 +14,14 @@ public class Boss : MonoBehaviour
     List<BossPhase> phases = new List<BossPhase>();
     BossPhase currentPhase;
     int phaseIndex = 0;
+    //magic
+    
+    Transform magicSpawner = null;
+    [SerializeField]
+    bullet magic = null;
+    [SerializeField]
+    bullet knife = null;
+    Transform knifeSpawner = null;
     //
     NavMeshAgent ag;
     Animator anim;
@@ -22,12 +30,16 @@ public class Boss : MonoBehaviour
     //minons
     [SerializeField]
     GameObject enemyToSpawn = null;
+    [SerializeField]
+    GameObject enemmyToSpawn2 =null;
+    GameObject enemy=null;
     //teleport
     Vector3 startPos=Vector3.zero;
     ParticleSystem smoke = null;
     bool isDead = false;
     Weapon wp = null;
     EnemyHealth health;
+   
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -44,12 +56,22 @@ public class Boss : MonoBehaviour
         phases.Add(phase3);
         startPos = transform.position;
         smoke = GetComponentInChildren<ParticleSystem>();
-        if(roof==null)
-        roof = GameObject.FindGameObjectWithTag(StaticStrings.roof).transform;
         currentPhase = phases[phaseIndex];
         currentPhase.EnterState();
         wp = GetComponentInChildren<Weapon>();
-        
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach(var c in allChildren)
+        {
+            if(c.gameObject.name== "KnifeSpawner")
+            {
+                knifeSpawner = c.transform;
+            }
+            else if( c.gameObject.name== "MagicSpawner")
+            {
+                magicSpawner = c.transform;
+            }
+        }
+        enemy = enemyToSpawn;
     }
 
    
@@ -59,6 +81,10 @@ public class Boss : MonoBehaviour
         //現在スペップのUpdate
         currentPhase.Updating();
         updateAnimator();
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            goToNextPhase();
+        }
        
     }
     void updateAnimator()
@@ -86,6 +112,7 @@ public class Boss : MonoBehaviour
         }
     }
     #region spells
+    //スタートポイントに戻ってエフェクトplay
     public void teleport()
     {
         if (smoke != null)
@@ -94,8 +121,10 @@ public class Boss : MonoBehaviour
         }
         transform.position = startPos;
     }
+    //敵のをスポンする
     public void SpawnMinion()
     {
+
         for(int i = 0; i < 4; i++)
         {
             Vector3 spawnPos;
@@ -110,24 +139,83 @@ public class Boss : MonoBehaviour
  
             }
             spawnPos = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
-            
-            
-            Instantiate(enemyToSpawn, spawnPos, transform.rotation);
+            Instantiate(enemy, spawnPos, transform.rotation);
+           
+        }
+        if (enemy == enemyToSpawn)
+        {
+            enemy = enemmyToSpawn2;
+        }
+        else
+        {
+            enemy = enemyToSpawn;
         }
     }
     #endregion
+    //回復
      void restoreHealth()
     {
         health.respawn();
     }
+    //武器のcolliderをactive/deactive
     public void weaponAttack(int v)
     {
         if (wp == null) { return; }
         wp.attack(v);
     }
+    //死
     private void Death()
     {
         isDead = true;
+        StartCoroutine(deathCo());
+    }
+
+    IEnumerator deathCo()
+    {
+        anim.SetTrigger(StaticStrings.death);
+        yield return new WaitForSeconds(3);
         Destroy(gameObject);
+    }
+    //魔法スポンサー
+        public void InstantiateSpell()
+    {
+        if (p == null) return;
+        bullet newBullet = Instantiate(magic, magicSpawner.position, magicSpawner.rotation) as bullet;
+        Vector3 direction = p.transform.position - transform.position;
+        newBullet.rb.AddForce(direction * 30);
+
+    }
+    public void ThrowKnife()
+    {
+        if (p == null) return;
+        bullet newBullet = Instantiate(knife, knifeSpawner.position, knifeSpawner.rotation) as bullet;
+        Vector3 direction = p.transform.position - transform.position;
+        newBullet.rb.AddForce(direction * 30);
+    }
+    public void SpellCO()
+    {
+        StartCoroutine(castSpell());
+    }
+    
+     IEnumerator castSpell()
+    {
+        //無敵になって
+        health.becomeInvincible();
+        if (currentPhase == phases[1])
+        {
+            //アニメション
+            anim.SetTrigger(StaticStrings.magic);
+        }
+        else
+        {
+             //アニメション
+            anim.SetTrigger(StaticStrings.special);
+            yield return new WaitForSeconds(5);
+            
+        }
+       
+        yield return new WaitForSeconds(5);
+        //phase2Classの値をリセットする
+        currentPhase.resetValues();
     }
 }

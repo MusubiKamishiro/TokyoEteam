@@ -99,7 +99,7 @@ public class AreaManager : MonoBehaviour
     public void CaptureComplete()
     {
         state = State.Capture;
-        playerStatus.captureNumber++;
+        //playerStatus.captureNumber++;
         renderer.material.color = playerColor;
 
     }

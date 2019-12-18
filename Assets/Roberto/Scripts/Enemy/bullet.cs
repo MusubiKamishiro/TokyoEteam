@@ -19,8 +19,8 @@ public class bullet : MonoBehaviour
     {
         if (other.tag == StaticStrings.player)
         {
-           PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-             playerHealth.takeDamage(damage);
+           PlayerStatus playerHealth = other.GetComponent<PlayerStatus>();
+             playerHealth.HitDamage(damage);
             Destroy(gameObject);
         }
     }

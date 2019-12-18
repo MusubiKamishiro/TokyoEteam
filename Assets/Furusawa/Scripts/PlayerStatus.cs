@@ -7,9 +7,13 @@ public class PlayerStatus : MonoBehaviour
 {
     [Header("プレイヤーの体力")]
     [SerializeField, Tooltip("Playerの最大体力")]
-    float playerMaxLife = 150;
-    [SerializeField]
-    float playerCurrentLife = 150;
+    float playerMaxLife = 3;
+    
+    public float playerCurrentLife = 3;
+
+    [Header("ダメージ受けた後の無敵時間")]
+    [SerializeField] float invisibleTime;
+    public bool invisibleFlag = false;
 
     [Header("必殺技ゲージ")]
     [SerializeField, Tooltip("必殺ゲージの上限値")]
@@ -23,11 +27,18 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField, Tooltip("Playerの移動速度")]
     float moveSpeed = 1;
 
-    [Header("占領したエリア数")]
-    [Tooltip("占領したエリア数")] public int captureNumber;
+    [SerializeField] Renderer renderer;
+    [SerializeField] GameDirector gd;
+    [SerializeField] Trasparence trasparence;
 
 
-    float time;
+
+    //[Header("占領したエリア数")]
+    //[Tooltip("占領したエリア数")] public int captureNumber;
+
+
+    float time = 0;
+    float time2 = 0;
 
     //プレイヤーの状態
     public enum PlayerCondition
@@ -40,10 +51,6 @@ public class PlayerStatus : MonoBehaviour
     }
     public PlayerCondition condition = PlayerCondition.None;
 
-    void Start()
-    {
-        
-    }
 
 
     void Update()
@@ -51,11 +58,39 @@ public class PlayerStatus : MonoBehaviour
 
         //specialCurrentValue = specialCurrentValue % specialMaxValue;
         StatusUpdate();
+        InvisibleTime();
+    }
+
+    private void InvisibleTime()
+    {
+        if(invisibleFlag == false)
+        {
+            return;
+        }
+        time2 += Time.deltaTime;
+        //if()
+
+        if(time == 0)
+        {
+            renderer.enabled = false;
+        }
+        else
+        {
+            renderer.enabled = true;
+        }
+
+        time += Time.deltaTime;
+        if(time >= invisibleTime)
+        {
+            time = 0;
+            invisibleFlag = false;
+        }
     }
 
     private void StatusUpdate()
     {
         specialCurrentValue += Time.deltaTime * magni;
+        if (playerCurrentLife >= playerMaxLife) playerCurrentLife = playerMaxLife; //切り捨て
     }
 
 
@@ -95,9 +130,12 @@ public class PlayerStatus : MonoBehaviour
     public void HitDamage(float damage)
     {
         playerCurrentLife -= damage;
+        invisibleFlag = true;
+        trasparence.becameTransparent();
+        gd.currentCombo = 0;
         if(playerCurrentLife <= 0)
         {
-
+            //プレイヤーが倒れるなど
         }
     }
 }

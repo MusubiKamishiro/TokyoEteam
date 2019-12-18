@@ -49,11 +49,12 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-               // fixed4 col = tex2D(_MainTex, i.uv);
-
+				fixed4 col = tex2D(_MainTex, i.uv);
+				
 				// 平面上の角度を求める
 				fixed2 uv = 0.5 - i.uv;
-				float rad = atan2(uv.y, uv.x);
+				// 開始位置
+				float rad = atan2(-uv.y, uv.x / 2.0f);
 
 				// -π〜πを0〜1の値に変換する
 				float value = (rad + 3.14) / (2 * 3.14);
@@ -71,7 +72,10 @@
 					discard;
 				}
 
-				return fixed4(1.0, 0.0, 0.0, 2.0 * d);
+				// apply fog
+				UNITY_APPLY_FOG(i.fogCoord, col);
+				return fixed4(col.x, col.y, col.z, 0.0);
+				//return fixed4(0.0, 0.0, 1.0, 0.0);
             }
             ENDCG
         }

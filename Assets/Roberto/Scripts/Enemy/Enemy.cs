@@ -194,6 +194,12 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireCube(transform.position,AllertArea);
   
     }
+
+    public void InstantiateSpell()
+    {
+        Debug.Log("magic");
+    }
+
 }
 public enum EnemyMotion
 {

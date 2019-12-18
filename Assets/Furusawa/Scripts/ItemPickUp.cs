@@ -43,5 +43,10 @@ public class ItemPickUp : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        //ここから呼び出した方がいいかも
+    }
+
 
 }
