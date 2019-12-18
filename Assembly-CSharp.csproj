@@ -60,9 +60,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Furusawa\Scripts\AreaBossFlag.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\AreaManager.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\Circle.cs" />
     <Compile Include="Assets\Furusawa\Scripts\EnemySpawn.cs" />
     <Compile Include="Assets\Furusawa\Scripts\Item.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\ItemPickUp.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\PlayerMoveFuru.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\PlayerStatus.cs" />
     <Compile Include="Assets\Furusawa\Scripts\SceneChange.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\UIManager.cs" />
     <Compile Include="Assets\Script\CameraController.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\UnityChan\Scripts\AutoBlink.cs" />

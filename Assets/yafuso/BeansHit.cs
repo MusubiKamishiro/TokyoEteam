@@ -4,19 +4,10 @@ using UnityEngine;
 
 public class BeansHit : MonoBehaviour
 {
-
-    void OnCollisionEnter(Collision coll){
-        if(coll.gameObject.tag == "Destroy"){
+    void OnCollisionEnter(Collision coll)
+    {
+        if (coll.gameObject.tag == "Destroy"){
             Destroy(this.gameObject, 3f);
         }
     }
-
-    //void Start()
-    //{
-
-    //}
-    //void Update()
-    //{
-
-    //}
 }

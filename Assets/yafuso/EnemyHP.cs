@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHP : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class EnemyHP : MonoBehaviour
     private int MaxHP = 10;
     //敵のHP
     private int hp;
-
 
     void Start()
     {
@@ -21,13 +21,14 @@ public class EnemyHP : MonoBehaviour
         {
             hp -= 1;
             Debug.Log(hp);
+
         }
     }
 
         // Update is called once per frame
     void Update()
     {
-        if(hp == 0)
+        if(hp <= 0)
         {
             Destroy(this.gameObject);
         }
