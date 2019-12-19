@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5124ba8ab1f5bf348b35e5795565c522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PickSE: {fileID: 8300000, guid: 2037228e8d36529438e895b5b445d4e7, type: 3}
   itemEffect: 0
 --- !u!114 &4307455914823589688
 MonoBehaviour:
@@ -188,12 +189,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7678648085371964407, guid: aec4dd8e4bd30eb4194dd3935df1aaa2,
+    - target: {fileID: 3599236515461038612, guid: aec4dd8e4bd30eb4194dd3935df1aaa2,
         type: 3}
       propertyPath: prewarm
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3599236515461038612, guid: aec4dd8e4bd30eb4194dd3935df1aaa2,
+    - target: {fileID: 7678648085371964407, guid: aec4dd8e4bd30eb4194dd3935df1aaa2,
         type: 3}
       propertyPath: prewarm
       value: 1

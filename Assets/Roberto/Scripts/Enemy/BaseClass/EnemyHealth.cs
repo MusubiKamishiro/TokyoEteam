@@ -21,6 +21,12 @@ public class EnemyHealth : MonoBehaviour
     float invinibleCounter = 5;
     float invincibleTime = 5;
 
+    // サウンド
+    public AudioClip BombSE;
+    public AudioClip FlySE;
+    AudioSource audioSource2;
+    AudioSource audioSource3;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,6 +34,9 @@ public class EnemyHealth : MonoBehaviour
 
         es = transform.parent.GetComponent<EnemySpawn>();
         gd = transform.parent.GetComponent<GameDirector>();
+
+        audioSource2 = GetComponent<AudioSource>();
+        audioSource3 = GetComponent<AudioSource>();
     }
 
     public virtual void INIT()
@@ -58,6 +67,8 @@ public class EnemyHealth : MonoBehaviour
     }
   public virtual void takeDamage(float damage)
     {
+        audioSource2.PlayOneShot(BombSE);
+
         if (isDeath||isInvincible) { return; }
         healt -= damage;
         
@@ -67,6 +78,7 @@ public class EnemyHealth : MonoBehaviour
             NavMeshAgent ag = GetComponent<NavMeshAgent>();
             if (ag != null)
                 ag.SetDestination(transform.position);
+            audioSource3.PlayOneShot(FlySE);
             GetComponent<Animator>().SetTrigger(StaticStrings.death);
             Destroy(gameObject,3);
 
