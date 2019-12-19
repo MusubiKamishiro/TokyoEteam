@@ -22,7 +22,7 @@ public class PickUp : MonoBehaviour
         ps = GameObject.Find("Mametarou").GetComponent<PlayerStatus>();
 
         audioSource4 = GetComponent<AudioSource>();
-
+        
     }
     private void OnTriggerEnter(Collider other)
     {

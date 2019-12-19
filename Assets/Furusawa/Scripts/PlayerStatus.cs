@@ -31,6 +31,10 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] GameDirector gd;
     [SerializeField] Trasparence trasparence;
 
+    // サウンド
+    public AudioClip DamageSE;
+    AudioSource audioSource1;
+
 
 
     //[Header("占領したエリア数")]
@@ -51,7 +55,10 @@ public class PlayerStatus : MonoBehaviour
     }
     public PlayerCondition condition = PlayerCondition.None;
 
-
+    void Start()
+    {
+        audioSource1 = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -130,6 +137,7 @@ public class PlayerStatus : MonoBehaviour
     public void HitDamage(float damage)
     {
         playerCurrentLife -= damage;
+        audioSource1.PlayOneShot(DamageSE);
         invisibleFlag = true;
         trasparence.becameTransparent();
         gd.currentCombo = 0;
