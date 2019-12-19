@@ -21,7 +21,7 @@ public class Range : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.position = player.GetComponent<Player>().GetPosition;
+        transform.position = player.GetComponent<Player>().GetPosition + new Vector3(0,0.05f,0);
         transform.rotation = player.GetComponent<Player>().GetQuaternion;
         transform.Rotate(0, 58, 0);
     }

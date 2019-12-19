@@ -1541,7 +1541,7 @@ MonoBehaviour:
   - {fileID: 8585973981132228343, guid: ad8e0d07324d3624ea636355dfdbb0b4, type: 3}
   - {fileID: 1923212531615860311, guid: f9f67bf5d8c95874da60db33e0ee1e80, type: 3}
   - {fileID: 4922093972570805331, guid: bcec516e39180844898eb3c711eb1f3c, type: 3}
-  maxHelath: 60
+  maxHelath: 25
   invinibleCounter: 5
   BombSE: {fileID: 8300000, guid: ae6624c9cea3a6d45b195364395827f5, type: 3}
   FlySE: {fileID: 8300000, guid: 038f4900599876d428ccd58d8066fde3, type: 3}

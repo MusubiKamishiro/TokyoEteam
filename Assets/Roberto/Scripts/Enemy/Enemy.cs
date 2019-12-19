@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-   
+    bool dead = false;
     NavMeshAgent agent;
     Animator anim;
     //Patrollの為の値
@@ -54,14 +54,22 @@ public class Enemy : MonoBehaviour
         wp = GetComponentInChildren<Weapon>();
         //最初のmotionを決めます
         changeState(EnemyMotion.idle);
+
+        EnemyHealth eh = GetComponent<EnemyHealth>();
+        eh.OnDead += Dead;
         
     }
 
     #endregion
     void Update()
     {
-        updateMotion();
         updateAnimator();
+        if (dead)
+        {
+            return;
+        }
+        updateMotion();
+
     }
     #region Motions
     void updateMotion()
@@ -200,6 +208,10 @@ public class Enemy : MonoBehaviour
         Debug.Log("magic");
     }
 
+    void Dead()
+    {
+        dead = true;
+    }
 }
 public enum EnemyMotion
 {

@@ -29,6 +29,7 @@ public class GameDirector : MonoBehaviour
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] GameObject resultGroup;
     [SerializeField] GameObject introGroup;
+    [SerializeField] MenuButton menu;
 
 
     [SerializeField] float limitTime = 60;
@@ -43,8 +44,11 @@ public class GameDirector : MonoBehaviour
 
     private float time = 0;
 
+    public bool endFlag2 = false;
+
     void Start()
     {
+        
         introduce.Play("introduce");
         result.enabled = false;
         currentTime = limitTime;
@@ -56,25 +60,21 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
-        //ゲーム終了か体力ないなら
-        if(endFlag == true || playerStatus.GetCurrentLife() <= 0)
+        if (playerStatus.GetCurrentLife() <= 0 && endFlag2 == false)
         {
-            resultGroup.SetActive(true);
-            cg.alpha = 0;
-            player.moveFlag = false;
-            //終わったときの処理
-            //resultCombo.text = "最大コンボ数:" + maxCombo;
-            //resultKill.text = "追い払った数:" + killCount;
-            resultCombo.text = "こんぼ:" + maxCombo;
-            resultKill.text = "たおした:" + killCount;
-            currentTime = 0;
-            result.enabled = true;
-
-            //リザルト
-            resultCombo2 = maxCombo;
-            resultKill2 = killCount;
+            endFlag2 = true;
+            EndGame();
+        }
+        //ゲーム終了か体力ないなら
+        if (currentTime <= 0 && startFlag == true && endFlag2 == false/*endFlag == true/* || playerStatus.GetCurrentLife() <= 0*/)
+        {
+            endFlag2 = true;
+            menu.sceneName = "C";
+            EndGame();
             return;
         }
+
+
 
 
         if(startFlag == false)
@@ -88,6 +88,25 @@ public class GameDirector : MonoBehaviour
         UpdateScore();
         TimeUpdate();
 
+    }
+
+    //ゲーム終わる処理
+    public void EndGame()
+    {
+        resultGroup.SetActive(true);
+        cg.alpha = 0;
+        player.moveFlag = false;
+        //終わったときの処理
+        //resultCombo.text = "最大コンボ数:" + maxCombo;
+        //resultKill.text = "追い払った数:" + killCount;
+        resultCombo.text = "こんぼ:" + maxCombo;
+        resultKill.text = "たおした:" + killCount;
+        currentTime = 0;
+        result.enabled = true;
+
+        //リザルト
+        resultCombo2 = maxCombo;
+        resultKill2 = killCount;
     }
 
     public void TextUpdate()

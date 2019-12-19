@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 public class EnemyHealth : MonoBehaviour
 {
+    public Action OnDead;
     //古澤追加
     [SerializeField] GameObject fx;
     Rigidbody rb;
@@ -87,16 +89,21 @@ public class EnemyHealth : MonoBehaviour
             GetComponent<Animator>().SetTrigger(StaticStrings.death);
             Destroy(gameObject,3);
 
+            //
+            if(OnDead != null)
+            {
+                OnDead();
+            }
             Instantiate(fx,transform.position + new Vector3(0,1,0),Quaternion.identity);
             rb.isKinematic = false;
             ag.enabled = false;
             if(GetComponent<Enemy>()) Destroy(GetComponent<Enemy>());
             if (GetComponent<MidleBoss>())
             {
-                Instantiate(item[Random.Range(0, item.Length)], transform.position, Quaternion.identity);
+                Instantiate(item[UnityEngine.Random.Range(0, item.Length)], transform.position, Quaternion.identity);
                 Destroy(GetComponent<MidleBoss>());
             }
-            rb.AddForce(new Vector3(Random.Range(-power,power), power-200, Random.Range(-power, power)));
+            rb.AddForce(new Vector3(UnityEngine.Random.Range(-power,power), power-200, UnityEngine.Random.Range(-power, power)));
             es.currentEnemyNum--;
             gd.killCount++;
 
@@ -105,7 +112,7 @@ public class EnemyHealth : MonoBehaviour
         else
         {
             //random
-            int rnd = Random.Range(0, 11);
+            int rnd = UnityEngine.Random.Range(0, 11);
             if (rnd > 8)
             {
                 if (anim != null)
