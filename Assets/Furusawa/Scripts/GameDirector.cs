@@ -10,13 +10,16 @@ public class GameDirector : MonoBehaviour
     [SerializeField] bool endFlag = false;
     [SerializeField] EnemySpawn enemySpawn;
     [SerializeField] PlayerStatus playerStatus;
+    [SerializeField] Player player;
+    [SerializeField] CanvasGroup cg;
 
     //UI
     [SerializeField] Animator introduce;
     [SerializeField] Animator result;
     [SerializeField] Text timeText;
     [SerializeField] Text comboText;
-    [SerializeField] Text resultText;
+    [SerializeField] Text resultKill;
+    [SerializeField] Text resultCombo;
     [SerializeField, Range(0, 1)] float comboAlpha = 0;
     [SerializeField] CanvasGroup canvasGroup;
 
@@ -39,7 +42,7 @@ public class GameDirector : MonoBehaviour
         result.enabled = false;
         currentTime = limitTime;
         timeText.text = currentTime.ToString();
-
+        cg.alpha = 0;
     }
 
 
@@ -48,9 +51,13 @@ public class GameDirector : MonoBehaviour
         //ゲーム終了か体力ないなら
         if(endFlag == true || playerStatus.GetCurrentLife() <= 0)
         {
+            cg.alpha = 0;
+            player.moveFlag = false;
             //終わったときの処理
-            resultText.text = "最大コンボ数:" + maxCombo;
-
+            //resultCombo.text = "最大コンボ数:" + maxCombo;
+            //resultKill.text = "追い払った数:" + killCount;
+            resultCombo.text = "こんぼ:" + maxCombo;
+            resultKill.text = "たおした:" + killCount;
             currentTime = 0;
             result.enabled = true;
             return;
@@ -63,7 +70,7 @@ public class GameDirector : MonoBehaviour
             return;
         }
 
-
+        
         TextUpdate();
         UpdateScore();
         TimeUpdate();
@@ -92,6 +99,8 @@ public class GameDirector : MonoBehaviour
 
     public void GameStart()
     {
+        cg.alpha = 1;
+        player.moveFlag = true;
         introduce.Play("introduceEnd");
         startFlag = true;
         enemySpawn.processFlag = true;

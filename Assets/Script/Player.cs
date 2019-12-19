@@ -5,7 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] GameObject muzzle;//古澤追加
+    Animator animator;
     [SerializeField] ParticleSystem fx_bean;
+    public bool moveFlag = false;
     Rigidbody rb;
     public GameObject ball;
     // スティックの誤差
@@ -34,11 +36,16 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audioSource1 = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (moveFlag == false)
+        {
+            return;
+        }
         if (Input.GetKey(KeyCode.P))
         {
             angle += 1;
@@ -77,10 +84,18 @@ public class Player : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        animator.SetFloat("Horizontal", x);
+        animator.SetFloat("Vertical", z);
+
         // 左スティックの情報をもとにキャラの向きの変更と移動
         rb.velocity = new Vector3(x * 10, -3, z * 10);
         if ((x != 0) || (z != 0))
         {
+            //float value = Mathf.Abs(Mathf.Clamp(z, x, 1));
+
+
+
+            //animator.SetFloat("MOVE", x);
             Vector3 direction = new Vector3(x, 0, z);
             transform.localRotation = Quaternion.LookRotation(direction);
         }
@@ -99,8 +114,8 @@ public class Player : MonoBehaviour
         {
             // ここに豆を投げる処理の追加
             //Throw();
-            fx_bean.Play();
-            audioSource1.PlayOneShot(ThrowSE);
+            animator.SetTrigger("THROW");
+
         }
 
         Debug.Log("rightStick.x:" + rightStick.x + ", rightStick.z:" + rightStick.z);
@@ -109,18 +124,20 @@ public class Player : MonoBehaviour
     //豆投げるyafusoさんのスクリプト移植
     void Throw()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            Quaternion iden = Quaternion.identity;
-            //Quaternion angle = Quaternion.Euler(Random.Range(-30, 30), 0, Random.Range(-30, 30)) + iden;
-            Vector3 pos = muzzle.transform.position;
-            pos.x += Random.Range(-1, 1);
-            pos.z += Random.Range(-1, 1);
-            var BeansInstance1 = Instantiate(ball, pos, Quaternion.identity);
-            BeansInstance1.GetComponent<Rigidbody>().AddForce(muzzle.transform.forward * 800);
+        fx_bean.Play();
+        audioSource1.PlayOneShot(ThrowSE);
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Quaternion iden = Quaternion.identity;
+        //    //Quaternion angle = Quaternion.Euler(Random.Range(-30, 30), 0, Random.Range(-30, 30)) + iden;
+        //    Vector3 pos = muzzle.transform.position;
+        //    pos.x += Random.Range(-1, 1);
+        //    pos.z += Random.Range(-1, 1);
+        //    var BeansInstance1 = Instantiate(ball, pos, Quaternion.identity);
+        //    BeansInstance1.GetComponent<Rigidbody>().AddForce(muzzle.transform.forward * 800);
 
-            Destroy(BeansInstance1, 30f);
-        }
+        //    Destroy(BeansInstance1, 30f);
+        //}
     }
 
     // 座標のゲッター

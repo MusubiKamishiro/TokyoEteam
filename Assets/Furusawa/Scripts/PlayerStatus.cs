@@ -30,6 +30,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] Renderer renderer;
     [SerializeField] GameDirector gd;
     [SerializeField] Trasparence trasparence;
+    Animator animator;
 
 
 
@@ -51,7 +52,10 @@ public class PlayerStatus : MonoBehaviour
     }
     public PlayerCondition condition = PlayerCondition.None;
 
-
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -67,17 +71,8 @@ public class PlayerStatus : MonoBehaviour
         {
             return;
         }
-        time2 += Time.deltaTime;
         //if()
 
-        if(time == 0)
-        {
-            renderer.enabled = false;
-        }
-        else
-        {
-            renderer.enabled = true;
-        }
 
         time += Time.deltaTime;
         if(time >= invisibleTime)
@@ -129,13 +124,17 @@ public class PlayerStatus : MonoBehaviour
 
     public void HitDamage(float damage)
     {
+        if (playerCurrentLife <= 0)
+        {
+            //プレイヤーが倒れるなど
+            animator.SetTrigger("DEATH");
+        }
+        animator.SetTrigger("Hart");
         playerCurrentLife -= damage;
         invisibleFlag = true;
         trasparence.becameTransparent();
         gd.currentCombo = 0;
-        if(playerCurrentLife <= 0)
-        {
-            //プレイヤーが倒れるなど
-        }
+
+
     }
 }
