@@ -29,9 +29,13 @@ public class MeleeWeapon : Weapon
     {
         if (other.tag == StaticStrings.player)
         {
-            PlayerStatus playerHealth = other.GetComponent<PlayerStatus>();
-             playerHealth.HitDamage(attackPower);
-            
+            PlayerStatus playerStatus = other.GetComponent<PlayerStatus>();
+            if(playerStatus.invisibleFlag == false)
+            {
+                playerStatus.HitDamage(attackPower);
+
+            }
+
         }
     }
 }

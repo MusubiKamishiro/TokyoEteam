@@ -38,10 +38,14 @@ public class EnemySpawn : MonoBehaviour
     //一度にどれくらいspawnさせるか
     [SerializeField,Tooltip("一度に何体Spawnさせるか")] int oneTimeSpawn = 3;
 
+    GameDirector gd;
+    public bool bossFlag = false;
+    [SerializeField] int bossSpawnCount;
+
 
     void Start()
     {
-        
+        gd = GetComponent<GameDirector>();
     }
 
 
@@ -54,7 +58,10 @@ public class EnemySpawn : MonoBehaviour
         TimeCount();
 
         //if(PlayerStatus)ボスを呼び出す処理
-
+        if(gd.killCount % bossSpawnCount == 0 && gd.killCount != 0)
+        {
+            BossSpawn();
+        }
     }
 
     //常に呼ぶ関数。時間がクールタイム以上ならスポーン
@@ -77,7 +84,6 @@ public class EnemySpawn : MonoBehaviour
     //敵を沸かすメソッド
     private void Spawn()
     {
-        Debug.Log(transform.childCount);
         //敵が上限に達しているなら処理通さない
         if(spawnLimit <= transform.childCount)
         {
@@ -102,7 +108,17 @@ public class EnemySpawn : MonoBehaviour
     //配列内の敵をランダムで決定
     private GameObject RandomEnemy()
     {
-        GameObject setEnemy = enemy[Random.Range(0, enemy.Length)];
+        GameObject setEnemy = null;
+        var value = Random.Range(0, 101);
+        if (value <= 95)
+        {
+            setEnemy = enemy[0];
+        }
+        else
+        {
+            setEnemy = enemy[1];
+        }
+        //setEnemy = enemy[Random.Range(0,enemy.Length)];
         return setEnemy;
     }
 
@@ -169,6 +185,18 @@ public class EnemySpawn : MonoBehaviour
         }
 
         return flag;
+    }
+
+    private void BossSpawn()
+    {
+        Vector3 spawnPos = SetPosition();
+
+        //配列の中でランダムに敵を選び、Groundの場所に敵を配置
+        GameObject enemyInstant = Instantiate(middleBoss, spawnPos, Quaternion.identity);
+        enemyInstant.transform.SetParent(transform);
+        //Vector3 myScale = enemyInstant.transform.localScale;
+        //float oneScale = Random.Range(0.8f, 1.2f);
+        //enemyInstant.transform.localScale = enemyInstant.transform.localScale * oneScale;
     }
 
     private void OnTriggerEnter(Collider other)

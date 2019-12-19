@@ -1,0 +1,38 @@
+newmtl Stone01:lambert3SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd stone2.png
+Ni 1.00
+newmtl Stone_Ground:lambert2SG
+illum 4
+Kd 0.36 0.32 0.32
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Wood:lambert2SG
+illum 4
+Kd 0.18 1.00 0.18
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Wood:lambert3SG
+illum 4
+Kd 0.27 0.09 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd isGuround1.png
+Ni 1.00
+newmtl lambert4SG
+illum 4
+Kd 0.71 0.04 0.04
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00

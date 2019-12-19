@@ -2798,8 +2798,8 @@ MonoBehaviour:
   processFlag: 0
   enemy:
   - {fileID: 8839693036923114221, guid: ac6d74be427ee0e4a8ed52ed36026197, type: 3}
-  - {fileID: 8135871111368416666, guid: 7ae906e2c7e35bc4682a59f0c09f7439, type: 3}
-  middleBoss: {fileID: 8135871111368416666, guid: 7ae906e2c7e35bc4682a59f0c09f7439,
+  - {fileID: 4523284846573309980, guid: cb30b06257246c548b95104127fc33e5, type: 3}
+  middleBoss: {fileID: 6142653392472475888, guid: c15dddc7fcdfa764f8df8013a18eaeb6,
     type: 3}
   scaleValue: 0
   spawnLimit: 50
@@ -2809,6 +2809,8 @@ MonoBehaviour:
   outerRadius: 20
   spawnInterVal: 1
   oneTimeSpawn: 5
+  bossFlag: 0
+  bossSpawnCount: 50
 --- !u!4 &2066966537
 Transform:
   m_ObjectHideFlags: 0
@@ -2870,11 +2872,11 @@ RectTransform:
   m_Father: {fileID: 133189810}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.5}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 1100, y: 188}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 489, y: 206}
   m_SizeDelta: {x: 380, y: 100}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &2087816524
 CanvasGroup:
   m_ObjectHideFlags: 0
