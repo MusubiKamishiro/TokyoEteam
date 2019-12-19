@@ -12,7 +12,9 @@ public class ItemPickUp : MonoBehaviour
         Item3
     }
 
+
     [SerializeField] ItemEffect itemEffect;
+
 
     //触れた時
     private void OnTriggerEnter(Collider other)
@@ -40,6 +42,7 @@ public class ItemPickUp : MonoBehaviour
                 Debug.Log("3のアイテム");
                 break;
         }
+        
         Destroy(gameObject);
     }
 

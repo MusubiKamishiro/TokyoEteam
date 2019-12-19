@@ -24,11 +24,16 @@ public class Player : MonoBehaviour
     // 
     private float angle = 1;
 
+    //サウンド
+    public AudioClip ThrowSE;
+    AudioSource audioSource1;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource1 = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -95,6 +100,7 @@ public class Player : MonoBehaviour
             // ここに豆を投げる処理の追加
             //Throw();
             fx_bean.Play();
+            audioSource1.PlayOneShot(ThrowSE);
         }
 
         Debug.Log("rightStick.x:" + rightStick.x + ", rightStick.z:" + rightStick.z);
