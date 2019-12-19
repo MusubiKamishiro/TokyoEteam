@@ -14,21 +14,17 @@ public class PickUp : MonoBehaviour
 
     //サウンド
     public AudioClip PickSE;
-    AudioSource audioSource4;
 
     private void Start()
     {
         gd = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         ps = GameObject.Find("Mametarou").GetComponent<PlayerStatus>();
 
-        audioSource4 = GetComponent<AudioSource>();
-        
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            audioSource4.PlayOneShot(PickSE);
             switch (type)
             {
                 //スコアアップ
@@ -44,9 +40,9 @@ public class PickUp : MonoBehaviour
                     ps.playerCurrentLife++;
                     break;
             }
-            
-            
+
             Destroy(gameObject);
+            AudioSource.PlayClipAtPoint(PickSE, transform.position);
         }
 
     }
