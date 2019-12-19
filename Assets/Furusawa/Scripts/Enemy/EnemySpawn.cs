@@ -40,6 +40,7 @@ public class EnemySpawn : MonoBehaviour
 
     GameDirector gd;
     public bool bossFlag = false;
+    [SerializeField] int bossSpawnCount;
 
 
     void Start()
@@ -57,7 +58,7 @@ public class EnemySpawn : MonoBehaviour
         TimeCount();
 
         //if(PlayerStatus)ボスを呼び出す処理
-        if(gd.killCount % 500 == 0)
+        if(gd.killCount % bossSpawnCount == 0 && gd.killCount != 0)
         {
             BossSpawn();
         }
