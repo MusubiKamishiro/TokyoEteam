@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] GameObject fx;
     Rigidbody rb;
     [SerializeField] float power;
+    [SerializeField] GameObject[] item;
     GameDirector gd;
     EnemySpawn es;
 
@@ -89,7 +90,12 @@ public class EnemyHealth : MonoBehaviour
             Instantiate(fx,transform.position + new Vector3(0,1,0),Quaternion.identity);
             rb.isKinematic = false;
             ag.enabled = false;
-            Destroy(GetComponent<Enemy>());
+            if(GetComponent<Enemy>()) Destroy(GetComponent<Enemy>());
+            if (GetComponent<MidleBoss>())
+            {
+                Instantiate(item[Random.Range(0, item.Length)], transform.position, Quaternion.identity);
+                Destroy(GetComponent<MidleBoss>());
+            }
             rb.AddForce(new Vector3(Random.Range(-power,power), power-200, Random.Range(-power, power)));
             es.currentEnemyNum--;
             gd.killCount++;

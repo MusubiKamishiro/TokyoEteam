@@ -15,7 +15,7 @@ MonoBehaviour:
   attackDelay: 2
   attackCounter: 2
   speed: 10
-  attackRange: 20
+  attackRange: 10
   chasingRange: 30
   waiting: 3
   waitingCounter: 3
