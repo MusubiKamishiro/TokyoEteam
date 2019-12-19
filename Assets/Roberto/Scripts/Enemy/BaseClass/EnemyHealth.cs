@@ -70,7 +70,6 @@ public class EnemyHealth : MonoBehaviour
     }
   public virtual void takeDamage(float damage)
     {
-        audioSource2.PlayOneShot(BombSE);
 
         if (isDeath||isInvincible) { return; }
         healt -= damage;
@@ -80,6 +79,7 @@ public class EnemyHealth : MonoBehaviour
         {
             isDeath = true;
             NavMeshAgent ag = GetComponent<NavMeshAgent>();
+            audioSource2.PlayOneShot(BombSE);
             if (ag != null)
                 ag.SetDestination(transform.position);
             audioSource3.PlayOneShot(FlySE);
