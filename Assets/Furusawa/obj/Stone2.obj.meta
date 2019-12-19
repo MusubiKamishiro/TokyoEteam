@@ -8,6 +8,7 @@ ModelImporter:
     400000: Stone02:pCube4
     400002: //RootNode
     2100000: Stone02_pCube4Mat
+    2100002: Stone02_lambert3SG
     2300000: Stone02:pCube4
     3300000: Stone02:pCube4
     4300000: Stone02:pCube4

@@ -89,6 +89,12 @@ ModelImporter:
     2100050: Wood7Mat
     2100052: Wood8Mat
     2100054: Wood9Mat
+    2100056: lambert2SG
+    2100058: Stone01_lambert3SG
+    2100060: Wood_lambert2SG
+    2100062: lambert4SG
+    2100064: Wood_lambert3SG
+    2100066: Stone_Ground_lambert2SG
     2300000: isGround
     2300002: Stone1
     2300004: Stone2

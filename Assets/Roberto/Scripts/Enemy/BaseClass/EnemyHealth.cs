@@ -25,8 +25,10 @@ public class EnemyHealth : MonoBehaviour
     // サウンド
     public AudioClip BombSE;
     public AudioClip FlySE;
+    public AudioClip AttackSE;
     AudioSource audioSource2;
     AudioSource audioSource3;
+    AudioSource audioSource4;
 
     void Start()
     {
@@ -38,6 +40,7 @@ public class EnemyHealth : MonoBehaviour
 
         audioSource2 = GetComponent<AudioSource>();
         audioSource3 = GetComponent<AudioSource>();
+        audioSource4 = GetComponent<AudioSource>();
     }
 
     public virtual void INIT()
@@ -72,6 +75,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (isDeath||isInvincible) { return; }
         healt -= damage;
+
         
         if (healt <= 0)
         {

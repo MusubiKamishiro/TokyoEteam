@@ -32,6 +32,10 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] Trasparence trasparence;
     Animator animator;
 
+    // サウンド
+    public AudioClip DamageSE;
+    AudioSource audioSource1;
+
 
 
     //[Header("占領したエリア数")]
@@ -52,9 +56,15 @@ public class PlayerStatus : MonoBehaviour
     }
     public PlayerCondition condition = PlayerCondition.None;
 
+<<<<<<< HEAD
     private void Start()
     {
         animator = GetComponent<Animator>();
+=======
+    void Start()
+    {
+        audioSource1 = GetComponent<AudioSource>();
+>>>>>>> 3dbdcec9ceafe718cc8cbba28d2bf97227a90af5
     }
 
     void Update()
@@ -131,6 +141,7 @@ public class PlayerStatus : MonoBehaviour
         }
         animator.SetTrigger("Hart");
         playerCurrentLife -= damage;
+        audioSource1.PlayOneShot(DamageSE);
         invisibleFlag = true;
         trasparence.becameTransparent();
         gd.currentCombo = 0;
