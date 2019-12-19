@@ -56,15 +56,11 @@ public class PlayerStatus : MonoBehaviour
     }
     public PlayerCondition condition = PlayerCondition.None;
 
-<<<<<<< HEAD
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-=======
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         audioSource1 = GetComponent<AudioSource>();
->>>>>>> 3dbdcec9ceafe718cc8cbba28d2bf97227a90af5
     }
 
     void Update()
