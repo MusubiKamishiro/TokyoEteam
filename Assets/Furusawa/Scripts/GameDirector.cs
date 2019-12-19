@@ -6,6 +6,10 @@ using UnityEngine.UI;
 //インゲームの管理
 public class GameDirector : MonoBehaviour
 {
+    //シーンをまたぐ
+    public static int resultCombo2;
+    public static int resultKill2;
+
     [SerializeField] bool startFlag = false;
     [SerializeField] bool endFlag = false;
     [SerializeField] EnemySpawn enemySpawn;
@@ -16,12 +20,15 @@ public class GameDirector : MonoBehaviour
     //UI
     [SerializeField] Animator introduce;
     [SerializeField] Animator result;
+    [SerializeField] Animator mamemaki;
     [SerializeField] Text timeText;
     [SerializeField] Text comboText;
     [SerializeField] Text resultKill;
     [SerializeField] Text resultCombo;
     [SerializeField, Range(0, 1)] float comboAlpha = 0;
     [SerializeField] CanvasGroup canvasGroup;
+    [SerializeField] GameObject resultGroup;
+    [SerializeField] GameObject introGroup;
 
 
     [SerializeField] float limitTime = 60;
@@ -43,6 +50,7 @@ public class GameDirector : MonoBehaviour
         currentTime = limitTime;
         timeText.text = currentTime.ToString();
         cg.alpha = 0;
+
     }
 
 
@@ -51,6 +59,7 @@ public class GameDirector : MonoBehaviour
         //ゲーム終了か体力ないなら
         if(endFlag == true || playerStatus.GetCurrentLife() <= 0)
         {
+            resultGroup.SetActive(true);
             cg.alpha = 0;
             player.moveFlag = false;
             //終わったときの処理
@@ -60,6 +69,10 @@ public class GameDirector : MonoBehaviour
             resultKill.text = "たおした:" + killCount;
             currentTime = 0;
             result.enabled = true;
+
+            //リザルト
+            resultCombo2 = maxCombo;
+            resultKill2 = killCount;
             return;
         }
 
@@ -99,11 +112,20 @@ public class GameDirector : MonoBehaviour
 
     public void GameStart()
     {
+
+        mamemaki.Play("Mamemaki");
         cg.alpha = 1;
         player.moveFlag = true;
         introduce.Play("introduceEnd");
         startFlag = true;
         enemySpawn.processFlag = true;
+        Invoke("ChangeGroup", 1);
+    }
+
+    private void ChangeGroup()
+    {
+        introGroup.SetActive(false);
+        resultGroup.SetActive(false);
     }
 
     //ゲームエンドは別スクリプトをボタンにアタッチする

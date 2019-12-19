@@ -30,6 +30,9 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] Renderer renderer;
     [SerializeField] GameDirector gd;
     [SerializeField] Trasparence trasparence;
+    [SerializeField] CameraShake cs;
+
+    [SerializeField] Animator hartAnim;
     Animator animator;
 
     // サウンド
@@ -135,6 +138,8 @@ public class PlayerStatus : MonoBehaviour
             //プレイヤーが倒れるなど
             animator.SetTrigger("DEATH");
         }
+        //cs.ShakeOther();
+        hartAnim.Play("HartHit");
         animator.SetTrigger("Hart");
         playerCurrentLife -= damage;
         audioSource1.PlayOneShot(DamageSE);

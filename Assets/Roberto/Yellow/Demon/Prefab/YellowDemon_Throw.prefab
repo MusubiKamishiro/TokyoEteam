@@ -683,10 +683,11 @@ MonoBehaviour:
   fx: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
   power: 500
   item: []
-  maxHelath: 10
+  maxHelath: 5
   invinibleCounter: 5
   BombSE: {fileID: 8300000, guid: ae6624c9cea3a6d45b195364395827f5, type: 3}
   FlySE: {fileID: 8300000, guid: 038f4900599876d428ccd58d8066fde3, type: 3}
+  AttackSE: {fileID: 0}
 --- !u!1 &4523284846573309982
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,8 +23,8 @@ TagManager:
   - Enemy
   - Target
   - Demon
-  - 
-  - 
+  - VisibleWall
+  - Beans
   - 
   - 
   - 

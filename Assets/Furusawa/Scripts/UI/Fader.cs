@@ -10,18 +10,19 @@ public class Fader : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        FadeIn();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            FadeIn();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            FadeOut();
-        }
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    FadeIn();
+        //}
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    FadeOut();
+        //}
     }
 
 
@@ -32,6 +33,6 @@ public class Fader : MonoBehaviour
 
     public void FadeOut()
     {
-        animator.Play("fadeOut");
+        animator.Play("fadeout");
     }
 }

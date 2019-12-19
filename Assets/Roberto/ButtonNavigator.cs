@@ -27,7 +27,7 @@ public class ButtonNavigator : MonoBehaviour
 
     bool A_input()
     {
-        return Input.GetButtonDown("Fire1");
+        return Input.GetButtonDown("Fire2");
     }
     
  

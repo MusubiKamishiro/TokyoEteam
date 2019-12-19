@@ -1545,6 +1545,7 @@ MonoBehaviour:
   invinibleCounter: 5
   BombSE: {fileID: 8300000, guid: ae6624c9cea3a6d45b195364395827f5, type: 3}
   FlySE: {fileID: 8300000, guid: 038f4900599876d428ccd58d8066fde3, type: 3}
+  AttackSE: {fileID: 8300000, guid: 468b1be26fc8b0b4eb57b10240ae63fd, type: 3}
 --- !u!114 &6142653392472475889
 MonoBehaviour:
   m_ObjectHideFlags: 0
