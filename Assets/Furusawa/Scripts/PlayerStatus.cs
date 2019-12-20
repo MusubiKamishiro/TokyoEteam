@@ -14,6 +14,7 @@ public class PlayerStatus : MonoBehaviour
     [Header("ダメージ受けた後の無敵時間")]
     [SerializeField] float invisibleTime;
     public bool invisibleFlag = false;
+    public bool shakeFlag = false;
 
     [Header("必殺技ゲージ")]
     [SerializeField, Tooltip("必殺ゲージの上限値")]
@@ -133,6 +134,8 @@ public class PlayerStatus : MonoBehaviour
 
     public void HitDamage(float damage)
     {
+        shakeFlag = true;
+        Invoke("StopShake", 0.5f);
         if (playerCurrentLife <= 0)
         {
             //プレイヤーが倒れるなど
@@ -148,5 +151,10 @@ public class PlayerStatus : MonoBehaviour
         gd.currentCombo = 0;
 
 
+    }
+
+    private void StopShake()
+    {
+        shakeFlag = false;
     }
 }
