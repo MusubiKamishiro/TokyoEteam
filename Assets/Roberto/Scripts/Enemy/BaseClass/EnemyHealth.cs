@@ -97,7 +97,7 @@ public class EnemyHealth : MonoBehaviour
             Instantiate(fx,transform.position + new Vector3(0,1,0),Quaternion.identity);
             rb.isKinematic = false;
             ag.enabled = false;
-            if(GetComponent<Enemy>()) Destroy(GetComponent<Enemy>());
+           // if(GetComponent<Enemy>()) Destroy(GetComponent<Enemy>());
             if (GetComponent<MidleBoss>())
             {
                 Instantiate(item[UnityEngine.Random.Range(0, item.Length)], transform.position, Quaternion.identity);
