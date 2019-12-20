@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   value: 30
-  PickSE: {fileID: 8300000, guid: 2037228e8d36529438e895b5b445d4e7, type: 3}
+  PickSE: {fileID: 8300000, guid: d55a74106ec77b2449472d2d52f639dc, type: 3}
 --- !u!54 &1719697632396635196
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.44
       inSlope: 0
       outSlope: 0
       tangentMode: 0

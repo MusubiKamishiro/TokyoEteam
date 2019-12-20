@@ -197,11 +197,11 @@ public class Enemy : MonoBehaviour
         if (wp == null) { return; }
         wp.attack(v);
     }
-    private void OnDrawGizmos()
+  /*  private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position,AllertArea);
   
-    }
+    }*/
 
     public void InstantiateSpell()
     {

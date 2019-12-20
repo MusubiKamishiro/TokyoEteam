@@ -111,7 +111,7 @@ public class GameDirector : MonoBehaviour
 
     public void TextUpdate()
     {
-        timeText.text = currentTime.ToString();
+        timeText.text = ""+ (int)currentTime;
 
         comboText.text = currentCombo + "Hit";
         if (maxCombo <= currentCombo) maxCombo = currentCombo;
