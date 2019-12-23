@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 
         Move();
         Attack();
-        Debug.Log(angle);
+        //Debug.Log(angle);
     }
 
     // 移動処理
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
 
         }
 
-        Debug.Log("rightStick.x:" + rightStick.x + ", rightStick.z:" + rightStick.z);
+        //Debug.Log("rightStick.x:" + rightStick.x + ", rightStick.z:" + rightStick.z);
     }
 
     //豆投げるyafusoさんのスクリプト移植

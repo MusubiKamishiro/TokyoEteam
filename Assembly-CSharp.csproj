@@ -66,6 +66,7 @@
     <Compile Include="Assets\Furusawa\Fx Explosion Pack\Script\DestroyEffect.cs" />
     <Compile Include="Assets\Furusawa\Scripts\AreaBossFlag.cs" />
     <Compile Include="Assets\Furusawa\Scripts\AreaManager.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\CameraShake.cs" />
     <Compile Include="Assets\Furusawa\Scripts\Circle.cs" />
     <Compile Include="Assets\Furusawa\Scripts\Enemy\EffectDamage.cs" />
     <Compile Include="Assets\Furusawa\Scripts\Enemy\EnemyColor.cs" />
@@ -74,9 +75,12 @@
     <Compile Include="Assets\Furusawa\Scripts\GameDirector.cs" />
     <Compile Include="Assets\Furusawa\Scripts\Item.cs" />
     <Compile Include="Assets\Furusawa\Scripts\ItemPickUp.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\MouseRemove.cs" />
     <Compile Include="Assets\Furusawa\Scripts\Player\PlayerCopyFuru.cs" />
     <Compile Include="Assets\Furusawa\Scripts\Player\PlayerMoveFuru.cs" />
     <Compile Include="Assets\Furusawa\Scripts\PlayerStatus.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\RandomTree.cs" />
+    <Compile Include="Assets\Furusawa\Scripts\ResultScore.cs" />
     <Compile Include="Assets\Furusawa\Scripts\SceneChange.cs" />
     <Compile Include="Assets\Furusawa\Scripts\UI\Fader.cs" />
     <Compile Include="Assets\Furusawa\Scripts\UI\num.cs" />
@@ -122,6 +126,7 @@
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Range.cs" />
     <Compile Include="Assets\Scripts\Cannon.cs" />
+    <Compile Include="Assets\Senes\Drag.cs" />
     <Compile Include="Assets\trap\Trap.cs" />
     <Compile Include="Assets\UnityChan\Scripts\AutoBlink.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />

@@ -6,6 +6,10 @@ using UnityEngine.UI;
 //インゲームの管理
 public class GameDirector : MonoBehaviour
 {
+    //シーンをまたぐ
+    public static int resultCombo2;
+    public static int resultKill2;
+
     [SerializeField] bool startFlag = false;
     [SerializeField] bool endFlag = false;
     [SerializeField] EnemySpawn enemySpawn;
@@ -16,12 +20,16 @@ public class GameDirector : MonoBehaviour
     //UI
     [SerializeField] Animator introduce;
     [SerializeField] Animator result;
+    [SerializeField] Animator mamemaki;
     [SerializeField] Text timeText;
     [SerializeField] Text comboText;
     [SerializeField] Text resultKill;
     [SerializeField] Text resultCombo;
     [SerializeField, Range(0, 1)] float comboAlpha = 0;
     [SerializeField] CanvasGroup canvasGroup;
+    [SerializeField] GameObject resultGroup;
+    [SerializeField] GameObject introGroup;
+    [SerializeField] MenuButton menu;
 
 
     [SerializeField] float limitTime = 60;
@@ -36,32 +44,37 @@ public class GameDirector : MonoBehaviour
 
     private float time = 0;
 
+    public bool endFlag2 = false;
+
     void Start()
     {
+        
         introduce.Play("introduce");
         result.enabled = false;
         currentTime = limitTime;
         timeText.text = currentTime.ToString();
         cg.alpha = 0;
+
     }
 
 
     void Update()
     {
-        //ゲーム終了か体力ないなら
-        if(endFlag == true || playerStatus.GetCurrentLife() <= 0)
+        if (playerStatus.GetCurrentLife() <= 0 && endFlag2 == false)
         {
-            cg.alpha = 0;
-            player.moveFlag = false;
-            //終わったときの処理
-            //resultCombo.text = "最大コンボ数:" + maxCombo;
-            //resultKill.text = "追い払った数:" + killCount;
-            resultCombo.text = "こんぼ:" + maxCombo;
-            resultKill.text = "たおした:" + killCount;
-            currentTime = 0;
-            result.enabled = true;
+            endFlag2 = true;
+            EndGame();
+        }
+        //ゲーム終了か体力ないなら
+        if (currentTime <= 0 && startFlag == true && endFlag2 == false/*endFlag == true/* || playerStatus.GetCurrentLife() <= 0*/)
+        {
+            endFlag2 = true;
+            menu.sceneName = "C";
+            EndGame();
             return;
         }
+
+
 
 
         if(startFlag == false)
@@ -77,9 +90,28 @@ public class GameDirector : MonoBehaviour
 
     }
 
+    //ゲーム終わる処理
+    public void EndGame()
+    {
+        resultGroup.SetActive(true);
+        cg.alpha = 0;
+        player.moveFlag = false;
+        //終わったときの処理
+        //resultCombo.text = "最大コンボ数:" + maxCombo;
+        //resultKill.text = "追い払った数:" + killCount;
+        resultCombo.text = "こんぼ:" + maxCombo;
+        resultKill.text = "たおした:" + killCount;
+        currentTime = 0;
+        result.enabled = true;
+
+        //リザルト
+        resultCombo2 = maxCombo;
+        resultKill2 = killCount;
+    }
+
     public void TextUpdate()
     {
-        timeText.text = currentTime.ToString();
+        timeText.text = ""+ (int)currentTime;
 
         comboText.text = currentCombo + "Hit";
         if (maxCombo <= currentCombo) maxCombo = currentCombo;
@@ -99,11 +131,20 @@ public class GameDirector : MonoBehaviour
 
     public void GameStart()
     {
+
+        mamemaki.Play("Mamemaki");
         cg.alpha = 1;
         player.moveFlag = true;
         introduce.Play("introduceEnd");
         startFlag = true;
         enemySpawn.processFlag = true;
+        Invoke("ChangeGroup", 1);
+    }
+
+    private void ChangeGroup()
+    {
+        introGroup.SetActive(false);
+        resultGroup.SetActive(false);
     }
 
     //ゲームエンドは別スクリプトをボタンにアタッチする

@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   value: 1
-  PickSE: {fileID: 8300000, guid: 2037228e8d36529438e895b5b445d4e7, type: 3}
+  PickSE: {fileID: 8300000, guid: d55a74106ec77b2449472d2d52f639dc, type: 3}
 --- !u!1 &4922093972570805333
 GameObject:
   m_ObjectHideFlags: 0

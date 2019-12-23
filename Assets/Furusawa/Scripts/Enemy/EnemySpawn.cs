@@ -46,6 +46,12 @@ public class EnemySpawn : MonoBehaviour
     void Start()
     {
         gd = GetComponent<GameDirector>();
+//#if UNITY_EDITOR
+//        for(int i = 0; i< spawnLimit; i++)
+//        {
+//            Spawn();
+//        }
+//#endif
     }
 
 
@@ -57,11 +63,9 @@ public class EnemySpawn : MonoBehaviour
         }
         TimeCount();
 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    CheckGround(Vector3.zero);
-        //}
-        if(gd.killCount % bossSpawnCount != 0)
+
+
+        if (gd.killCount % bossSpawnCount != 0)
         {
             bossFlag = false;
         }

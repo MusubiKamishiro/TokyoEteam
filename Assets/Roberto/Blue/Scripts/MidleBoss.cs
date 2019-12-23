@@ -22,6 +22,8 @@ public class MidleBoss : MonoBehaviour
     Transform magicSpawner=null;
     [SerializeField]
     bullet magic = null;
+
+    bool dead = false;
     MeleeWeapon weapon;
     void Start()
     {
@@ -30,6 +32,8 @@ public class MidleBoss : MonoBehaviour
         player = FindObjectOfType<Player>();
         attackCounter = status.attackDelay;
         health = GetComponent<EnemyHealth>();
+        
+        health.OnDead += Dead;
         spellTime = spelltimeDelay;
         weapon = GetComponentInChildren<MeleeWeapon>();
        
@@ -42,8 +46,13 @@ public class MidleBoss : MonoBehaviour
     }
     public void updating()
     {
-        MoveUpdating();
         updateAnimator();
+        
+        if (dead)
+        {
+            return;
+        }
+        MoveUpdating();
         spellTimerCheck();
     }
     void spellTimerCheck()
@@ -160,6 +169,10 @@ public class MidleBoss : MonoBehaviour
     {
         if (weapon == null) { return; }
         weapon.attack(v);
+    }
+    void Dead()
+    {
+        dead = true;
     }
 }
 
